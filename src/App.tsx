@@ -6,6 +6,8 @@ import { ExpensesView } from './components/expenses/ExpensesView';
 import { AdvisorView } from './components/advisor/AdvisorView';
 import { SettingsView } from './components/settings/SettingsView';
 import { CurrencyProvider } from './context/CurrencyContext';
+import { UserProvider } from './context/UserContext';
+import { RegistrationModal } from './components/auth/RegistrationModal';
 
 function App() {
     const [currentView, setCurrentView] = useState<View>('dashboard');
@@ -27,9 +29,12 @@ function App() {
 
     return (
         <CurrencyProvider>
-            <Layout currentView={currentView} onViewChange={setCurrentView}>
-                {renderView()}
-            </Layout>
+            <UserProvider>
+                <RegistrationModal />
+                <Layout currentView={currentView} onViewChange={setCurrentView}>
+                    {renderView()}
+                </Layout>
+            </UserProvider>
         </CurrencyProvider>
     );
 }
